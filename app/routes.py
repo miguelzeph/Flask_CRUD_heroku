@@ -1,13 +1,27 @@
-from app import app
-from flask import render_template, request, session
+from app import app, db
+from flask import render_template, request, session, redirect, url_for, flash
+from app.models import Data
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    all_data = Data.query.all()
 
-@app.route('/enviar', methods = ['POST','GET'])
-def enviar():
+    return render_template('index.html', all_data = all_data)
+
+@app.route('/insert', methods = ['POST'])
+def insert():
     if request.method == 'POST':
-        print('oi')
-        print(request.form["name"])
-    return render_template('index.html')
+        
+        name = request.form['name']
+        email = request.form['email']
+        phone = request.form['phone']
+
+        x = Data(name=name,email=email,phone=phone)
+        db.session.add(x)
+        db.session.commit()
+
+        flash('It was added with success','success')
+
+        return redirect(url_for('index'))
+
+    
