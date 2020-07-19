@@ -43,8 +43,11 @@
                         <td>{{data.phone}}</td>
 
                         <td>
-                            <button href = "{{url_for('update')}}" data-toggle = "modal" data-target= "#MYMODAL{{data.id}}" class = 'btn btn-warning'>Edit</button>
-                            <button class = 'btn btn-danger'>Delet</button>
+                            <a data-toggle = "modal" data-target= "#MYMODAL{{data.id}}" class = 'btn btn-warning'>Edit</a>
+                            <a
+                            href= "{{url_for('delete',id=data.id)}}"
+                            class = 'btn btn-danger'
+                            onclick="return confirm('Quer mesmo deletar?')">Delet</a>
                         </td>
                     </tr>
 
