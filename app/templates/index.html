@@ -43,10 +43,58 @@
                         <td>{{data.phone}}</td>
 
                         <td>
-                            <button class = 'btn btn-warning'>Edit</button>
+                            <button href = "{{url_for('update')}}" data-toggle = "modal" data-target= "#MYMODAL{{data.id}}" class = 'btn btn-warning'>Edit</button>
                             <button class = 'btn btn-danger'>Delet</button>
                         </td>
                     </tr>
+
+<!-- MODAL UPDATE-->
+<div id="MYMODAL{{data.id}}" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Update Information</h4>
+        </div>
+        <div class="modal-body">
+            <form action="{{url_for('update')}}" method="POST">
+              <div class="form-group">
+                  
+                  <!--criou esse input Hidden com name 'id' para pegar ele pelo request.form-->
+                  <input type="hidden"  name="id" value="{{data.id}}">
+
+                  <label>Name:</label>
+                  <input type="text" class="form-control" name="name" value="{{data.name}}">
+              </div>
+
+              <div class="form-group">
+                  <label>Email:</label>
+
+                  <input type="text" class="form-control" name="email" value="{{data.email}}">
+              </div>
+
+              <div class="form-group">
+                  <label>Phone:</label>
+
+                  <input type="text" class="form-control" name="phone" value="{{data.phone}}">
+              </div>
+
+
+              <div class="form-group">
+                  <button class="btn btn-primary" type="submit">Update</button>
+              </div>
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+  </div>
+</div>
+
+
+
+
                     {%endfor%}
 
                 </table>
@@ -62,8 +110,7 @@
 </div>
 
 
-<!--Modal-->
-
+<!--Modal CREATE-->
 <div class="modal fade" id="MYMODAL" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -74,7 +121,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form method ='POST' action = '{{url_for("insert")}}'>
+        <form method ='POST' action = '{{url_for("create")}}'>
           <div class="form-group">
             <label class="col-form-label">Name:</label>
             <input type="text" class="form-control" name='name'>

@@ -4,12 +4,12 @@ from app.models import Data
 
 @app.route('/')
 def index():
-    all_data = Data.query.all()
+    all_data = Data.query.all()# READ
 
     return render_template('index.html', all_data = all_data)
 
-@app.route('/insert', methods = ['POST'])
-def insert():
+@app.route('/create', methods = ['POST'])
+def create():
     if request.method == 'POST':
         
         name = request.form['name']
@@ -22,6 +22,22 @@ def insert():
 
         flash('It was added with success','success')
 
+        return redirect(url_for('index'))
+
+
+@app.route('/update', methods = ['GET', 'POST'])
+def update():
+    if request.method == 'POST':
+
+        my_data = Data.query.get(request.form['id'])
+ 
+        my_data.name = request.form['name']
+        my_data.email = request.form['email']
+        my_data.phone = request.form['phone']
+ 
+        db.session.commit()
+        flash("Employee Updated Successfully", 'success')
+ 
         return redirect(url_for('index'))
 
     

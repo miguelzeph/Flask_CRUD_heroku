@@ -16,15 +16,27 @@
 </head>
 <body>
 
+<!-- Flash Messenger-->
 {%with messages = get_flashed_messages(with_categories=true)%}
 {%for category, message in messages%}
-    <div class="alert alert-{{category}}">
-        {{message}} 
+    <div class="alert alert-{{category}} alert-dismissable">
+
+        <button class = 'close' data-dismiss='alert'>
+            x
+        </button>
+        {{message}}
+
     </div>
 {%endfor%}
 {%endwith%}
 
+
+
 {%block content%}
-{%endblock%}    
+
+{%endblock%} 
+
+
+
 </body>
 </html>
