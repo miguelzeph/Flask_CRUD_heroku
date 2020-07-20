@@ -11,7 +11,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
 db = SQLAlchemy(app)
 
-
+from app import routes
 
 #from flask_migrate import Migrate
 #Migrate(app,db)
